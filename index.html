@@ -1201,9 +1201,15 @@ if('Notification' in window && Notification.permission==='default' && !localStor
 }
 if('Notification' in window && Notification.permission==='granted')scheduleNotifications();
 
-// Service Worker
+// Service Worker — 暂时禁用，调试 PWA
+// if('serviceWorker' in navigator){
+//   try{navigator.serviceWorker.register('./sw.js').catch(function(){});}catch(e){}
+// }
+// 清除旧的 Service Worker
 if('serviceWorker' in navigator){
-  try{navigator.serviceWorker.register('./sw.js').catch(function(){});}catch(e){}
+  navigator.serviceWorker.getRegistrations().then(function(regs){
+    regs.forEach(function(r){r.unregister();});
+  });
 }
 
 render();
