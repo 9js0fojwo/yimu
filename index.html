@@ -397,55 +397,10 @@ function migrateOldData(old){
 }
 
 function createDefaultData(){
-  var now=Date.now();
-  function task(text){
-    return {text:text,done:false,due:'',ts:now++};
-  }
-  function sub(id,name,taskList){
-    return {id:id,name:name,tasks:taskList};
-  }
   return {
-    sections:[
-      {
-        id:newId('sec'),
-        name:'商务端',
-        color:'#185FA5',
-        dot:'#378ADD',
-        tasks:[
-          task('没发的客户发一下退休用工那个'),
-          task('微信营销的流程跑起来，包括常识，朋友圈，公众号，小红书看看如何做一套体系流程'),
-          task('如果做视频推广，可以选一个方向参考幕友枝，做出深度'),
-          task('通过ai查找电话资源')
-        ],
-        subs:[]
-      },
-      {
-        id:newId('sec'),
-        name:'客户端',
-        color:'#A32D2D',
-        dot:'#E24B4A',
-        tasks:[],
-        subs:[
-          sub(newId('sub'),'重点',[
-            task('高艺到期谈判周五去'),
-            task('普天到期，陶仪到期，星马到期')
-          ]),
-          sub(newId('sub'),'服务',[
-            task('郝先生确认案件解除和费用转移'),
-            task('无限想象督促，也到期了')
-          ]),
-          sub(newId('sub'),'开发',[])
-        ]
-      },
-      {
-        id:newId('sec'),
-        name:'产品端',
-        color:'#3B6D11',
-        dot:'#639922',
-        tasks:[],
-        subs:[]
-      }
-    ],
+    sections:DEFAULT_SECTIONS.map(function(s){
+      return {id:newId('sec'),name:s.name,color:s.color,dot:s.dot,tasks:[],subs:[]};
+    }),
     collapsedSec:{},
     collapsedSub:{}
   };
